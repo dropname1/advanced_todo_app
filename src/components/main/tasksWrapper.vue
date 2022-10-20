@@ -1,22 +1,50 @@
 <template>
   <div class="tasksWrapper">
+    <div class="buttonsTitle">{{titleTaskWrapper}}</div>
 
-    <div class="buttonsTitle"></div>
+    <div class="todoItem" v-for="task in tasks" :key="task.id">    
 
-    <div class="todoItem">    
       <div class="checkboxTaskWrapper">
-        <div class="completedCheckbox">
+        <div class="completedCheckbox"
+        v-on:click="todoCompleted(task)"
+        :class="{deeppinkColor: task.completed}">
         </div>
+
+        <div class="task" 
+        :class="{lineThrough: task.completed}">
+        {{task.title}}</div>
       </div>
+
       <div class="removeButtonWrapper">
-        <div class="removeButton">&times;</div>
+        <div 
+        class="removeButton"
+        @click="removeTodo(task)"
+        >&times;</div>
     </div>
     </div>
+    
   </div>
 </template>
 
 <script>
 export default {
+  methods: {
+    todoCompleted(task) {
+      task.completed = true
+
+      let date = new Date()
+      task.completedTime.day = date.getDate()
+      task.completedTime.mounth = date.getMonth()
+      task.completedTime.year = date.getFullYear()
+    },
+    removeTodo(task) {
+      this.$emit('removeTodo',task)
+    }
+  },
+  props: [
+    'tasks',
+    'titleTaskWrapper'
+  ]
 }
 </script>
 
@@ -65,7 +93,7 @@ export default {
 .completedCheckbox {
   width: 13px;
   height: 13px;
-  border-radius: 50%;
+  border-radius: 4px;
   border: 1px solid black;
   margin-right: 10px;
 }

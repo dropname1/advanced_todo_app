@@ -1,8 +1,14 @@
 <template>
   <div class="appMainWrapper">
-    <inputComponent></inputComponent> 
+    <inputComponent
+    v-on:addTodo="addTodo"
+    ></inputComponent> 
     <selectDay></selectDay>
-    <taskWrapper></taskWrapper>
+    <taskWrapper
+    v-on:removeTodo="removeTodo"
+    :titleTaskWrapper="titleTaskWrapper"
+    :tasks="tasks"
+    ></taskWrapper>
   </div>
 </template>
 
@@ -21,7 +27,19 @@ data () {
     return {
   
     }
+},
+methods: {
+removeTodo(task) {
+  this.$emit('removeTodo',task)
+},
+addTodo(data) {
+this.$emit('addTodo',data)
 }
+},
+props: [
+  'tasks',
+  'titleTaskWrapper'
+]
 
 }
 </script>

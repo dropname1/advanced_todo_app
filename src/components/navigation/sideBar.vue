@@ -3,8 +3,9 @@
     <div class="buttonsWrapper" v-for="(button, index) in buttons" :key="button.id">
         <sideButton
         :button="buttons[index]"
-        v-on:removePressed="removePressed"
         :buttonsArray="buttons"
+
+        v-on:buttonPressed="buttonPressed"
         ></sideButton>
     </div> 
     <div>
@@ -20,7 +21,7 @@ data() {
         buttons: [
             { id: 1, pressed: false, title:'all tasks',name: 'All'},
             { id: 2, pressed: false, title:'today\'s tasks',name: 'Today'},
-            { id: 3, pressed: false, title:'tasks for the week',name: 'Week'},
+            { id: 3, pressed: false, title:'tasks for the week',name: 'Next 7 days'},
             { id: 4, pressed: false, title: 'categories', name: 'Categories'},
             { id: 5, pressed: false, title:'tags',name: 'Tags'},
             { id: 6, pressed: false, title:'goals',name: 'Goal'},
@@ -33,11 +34,9 @@ components: {
     sideButton: sideButtonVue,
 },
 methods: {
-    removePressed (idButtonon) {
-        this.buttons.forEach(item => item.pressed = false)
-        let pressedButton = idButtonon - 1
-        this.buttons[pressedButton].pressed = true
-    },
+    buttonPressed(name, title) {
+        this.$emit('buttonPressed',name,title)
+    }
 },
 props:[
 ]

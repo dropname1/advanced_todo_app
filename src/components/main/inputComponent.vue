@@ -1,6 +1,9 @@
 <template>
   <div class="inputWrapper">
-    <input type="text">
+    <input 
+    v-model="inputValue"
+    @keyup="addTodo($event)"
+    type="text">
   </div>
 </template>
 
@@ -8,9 +11,32 @@
 export default {
 data () {
   return {
+    inputValue: ''
   }
 },
 methods: {
+  addTodo (event) {
+    if (event.code === 'Enter' || event.target.code === 'NumpadEnter') {
+      let date = new Date()
+      let day = date.getDate()
+      let mounth = date.getMonth()
+      let year = date.getFullYear()
+      let week = date.getDay()
+      let title = this.inputValue
+
+      let todoAddedData = {
+        day: day,
+        mounth: mounth,
+        year: year,
+        title: title,
+        week: week
+      }
+
+      this.$emit('addTodo', todoAddedData)
+      this.inputValue = ''
+    }
+    
+  }
 }
 }
 </script>

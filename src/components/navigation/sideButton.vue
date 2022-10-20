@@ -1,5 +1,6 @@
 <template>
     <div class="sideBarButton"
+    @click="buttonPressed(button.name, button.title)"
     >
     {{button.name}}
     </div>
@@ -11,6 +12,11 @@ data () {
   return {
     
   }
+},
+methods: {
+buttonPressed(name, title) {
+  this.$emit('buttonPressed',name, title)
+}
 },
 props: [
   'button'

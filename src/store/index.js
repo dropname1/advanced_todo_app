@@ -1,10 +1,7 @@
 import { createStore } from 'vuex'
 
 export default createStore({
-  state: {
-    buttonTitle: "all tasks",
-    buttonsTasks: [],
-  },
+  state: {},
   getters: {},
   mutations: {},
   actions: {},
