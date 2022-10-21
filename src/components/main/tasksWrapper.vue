@@ -22,7 +22,23 @@
         >&times;</div>
     </div>
     </div>
-    
+    <!-- Categories window -->
+    <div class="categoriesWrapper" v-if="$store.state.isCategory">
+        <h1>Your Open Category</h1>
+    </div>
+    <!-- Tags window -->
+    <div class="categoriesWrapper" v-if="$store.state.isTags">
+        <h1>Your Open Tags</h1>
+    </div>
+    <!-- Progress window -->
+    <div class="categoriesWrapper" v-if="$store.state.isProgress">
+        <h1>Your Open Progress</h1>
+    </div>
+    <!-- setting window -->
+    <div class="settingWrapper" v-if="$store.state.isSetting">
+        <h1>Your Open Setting</h1>
+    </div>
+
   </div>
 </template>
 

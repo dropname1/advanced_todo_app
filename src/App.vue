@@ -74,11 +74,32 @@ data () {
                 category: 'missing'
             }
         ],
+        // goals: [{
+        //     id: 1, title: 
+        //     'Leran Js', 
+        //     completed: false, 
+        //     checked: false, 
+        //     date: {
+        //         day: null, 
+        //         month: null,
+        //         year: null
+        //     },
+        //     completedTime: {
+        //         day: null,
+        //         month: null,
+        //         year: null
+        //     },
+        //     coalTime: {
+        //         day: null,
+        //         month: null,
+        //         year: null
+        //     }
+        // }
+        // ],
         allTasks: [],
         progress: [],
         categories: [],
         tags: [],
-        goals: [],
         progress: [],
         titleTaskWrapper: 'all tasks',
         todoId: 1,
@@ -93,6 +114,7 @@ components: {
 methods: {
     removeTodo(task) {
         this.progress.push(task)
+
         this.tasks = this.tasks.filter(item => item !== task)
         this.allTasks = this.tasks
     },
@@ -100,12 +122,15 @@ methods: {
         this.titleTaskWrapper = title
         name === 'All' ||
         name === 'Today'||
-        name === 'Week'?this.dateFilter(name): null;
+        name === 'Week' ? this.dateFilter(name): null;
 
-        name === 'Categories'?this.categoriesFilter('missing2'): null;
-        name === 'Tags'?this.tagsFilter('missing2'): null;
+        name === 'Categories' ? this.categoriesFilter('missing2'): null; // parametr
+        name === 'Tags' ? this.tagsFilter('missing2') : null; // parametr
+        name === 'Progress' ?  this.progressFiler(): null;
+        name === 'Setting' ?  this.setting(): null;
     },
     addTodo (data) {
+        this.clearState()
         this.tasks.push({
             id: this.todoId++,
             title: data.title,
@@ -128,6 +153,7 @@ methods: {
         this.allTasks = this.tasks
     },
     dateFilter (name) {
+        this.clearState()
         let date = new Date()
         let day = date.getDate()
         let mounth = date.getMonth()
@@ -157,19 +183,43 @@ methods: {
         }
     },
     categoriesFilter (category) {
+        this.clearState()
         this.tasks = this.allTasks
 
         this.tasks = this.tasks.filter((item)=> {
             return item.category === category
         })
+        this.$store.state.isCategory = true
     },
-    tagsFilter (tag) {
+    tagsFilter(tag) {
+        this.clearState()
         this.tasks = this.allTasks
 
         this.tasks = this.tasks.filter((item)=> {
             return item.tag === tag
         })
+        this.$store.state.isTags = true
     },
+    progressFiler () {
+        this.clearState()
+        this.tasks = this.allTasks
+        this.tasks = this.progress.filter((item)=> {
+            return (item.completed === true)
+        })
+        this.$store.state.isProgress = true
+    },
+    setting () {
+        this.clearState()
+        this.tasks = []
+        console.log('Your open Setting')
+        this.$store.state.isSetting = true
+    },
+    clearState () {
+        this.$store.state.isSetting = false
+        this.$store.state.isCategory = false
+        this.$store.state.isTags = false
+        this.$store.state.isProgress = false
+    }
 
 
 
