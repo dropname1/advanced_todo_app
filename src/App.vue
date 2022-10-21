@@ -23,7 +23,7 @@ data () {
         tasks: [
             {
                 id: 1, 
-                title: 'Test Todo 1', 
+                title: 'Test Todo 1: TODAY; Cat: missin2', 
                 completed: false, 
                 checked: false, 
                 completedTime: {
@@ -32,53 +32,54 @@ data () {
                     year: ''
                 },
                 date: {
-                    day: '',
-                    mounth: '',
-                    year: ''
+                    day: 21,
+                    mounth: 9,
+                    year: 2022,
                 },
                 tag: 'missing',
-                category: 'missing'
+                category: 'missing2'
             },{
                 id: 2, 
-                title: 'Test Todo 2', 
+                title: 'Test Todo 2: WEEK; Tag: missing2', 
                 completed: false, 
                 checked: false, 
                 completedTime: {
-                    day: '',
-                    mounth: '',
-                    year: ''
+                    day: null,
+                    mounth: null,
+                    year: null
                 },
                 date: {
-                    day: '',
-                    mounth: '',
-                    year: ''
+                    day: 24,
+                    mounth: 9,
+                    year: 2022
                 },
-                tag: 'missing',
+                tag: 'missing2',
                 category: 'missing'
             },{
                 id: 3, 
-                title: 'Test Todo 3', 
+                title: 'Test Todo 3: MOUNTH', 
                 completed: false, 
                 checked: false, 
                 completedTime: {
-                    day: '',
-                    mounth: '',
-                    year: ''
+                    day: null,
+                    mounth: null,
+                    year: null,
                 },
                 date: {
-                    day: '',
-                    mounth: '',
-                    year: ''
+                    day: 29,
+                    mounth: 9,
+                    year: 2022
                 },
                 tag: 'missing',
                 category: 'missing'
             }
         ],
-        saveTasks: [],
-        tasksToday: [],
-        tasksWeek: [],
+        allTasks: [],
         progress: [],
+        categories: [],
         tags: [],
+        goals: [],
+        progress: [],
         titleTaskWrapper: 'all tasks',
         todoId: 1,
         maxDay: 0,
@@ -92,12 +93,17 @@ components: {
 methods: {
     removeTodo(task) {
         this.progress.push(task)
-        this.tasks = this.tasks.filter(item => item !== task)  
-        this.saveTasks = this.tasks
+        this.tasks = this.tasks.filter(item => item !== task)
+        this.allTasks = this.tasks
     },
     buttonPressed(name,title) {
         this.titleTaskWrapper = title
-        this.dateFilterButton(name,title)
+        name === 'All' ||
+        name === 'Today'||
+        name === 'Week'?this.dateFilter(name): null;
+
+        name === 'Categories'?this.categoriesFilter('missing2'): null;
+        name === 'Tags'?this.tagsFilter('missing2'): null;
     },
     addTodo (data) {
         this.tasks.push({
@@ -106,9 +112,9 @@ methods: {
             completed: false,
             checked: false,
             completedTime: {
-                day: '',
-                mounth: '',
-                year: ''
+                day: null,
+                mounth: null,
+                year: null
             },
             date: {
                 day: data.day,
@@ -119,36 +125,57 @@ methods: {
             tag: 'missing',
             category: 'missing'
         })
-        this.saveTasks = this.tasks
+        this.allTasks = this.tasks
     },
-    dateFilterButton (name,title) {
+    dateFilter (name) {
         let date = new Date()
         let day = date.getDate()
         let mounth = date.getMonth()
         let year = date.getFullYear()
-        let week = date.getDay()
 
 
         if (name === 'All') {
-            this.tasks = this.saveTasks
+            this.tasks = this.allTasks
         } 
-        else if (name === 'Today') {
+        if (name === 'Today') {
+            this.tasks = this.allTasks
             this.tasks = this.tasks.filter((item)=> {
-                
                 return (
-                item.date.day === day && 
-                item.date.mounth === mounth &&
-                item.date.year === year)
+                    item.date.day === day && 
+                    item.date.mounth === mounth && 
+                    item.date.year === year)
             })
         }
-        else if (name === 'Week') {
+        if (name === 'Week') {
+            this.tasks = this.allTasks
             this.tasks = this.tasks.filter((item)=> {
-                return item.date.day <= item.date.day + 7 
+                if (item.date.mounth === mounth) {
+                   return item.date.day <= day + 7
+                } 
             })
+            
         }
-    }
+    },
+    categoriesFilter (category) {
+        this.tasks = this.allTasks
+
+        this.tasks = this.tasks.filter((item)=> {
+            return item.category === category
+        })
+    },
+    tagsFilter (tag) {
+        this.tasks = this.allTasks
+
+        this.tasks = this.tasks.filter((item)=> {
+            return item.tag === tag
+        })
+    },
 
 
+
+},
+mounted () {
+    this.allTasks = this.tasks
 }
 }
 </script>

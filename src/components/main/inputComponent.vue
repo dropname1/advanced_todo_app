@@ -24,15 +24,14 @@ methods: {
       let week = date.getDay()
       let title = this.inputValue
 
-      let todoAddedData = {
+      let data = {
         day: day,
         mounth: mounth,
         year: year,
         title: title,
         week: week
       }
-
-      this.$emit('addTodo', todoAddedData)
+      this.$emit('addTodo', data)
       this.inputValue = ''
     }
     

@@ -21,7 +21,7 @@ data() {
         buttons: [
             { id: 1, pressed: false, title:'all tasks',name: 'All'},
             { id: 2, pressed: false, title:'today\'s tasks',name: 'Today'},
-            { id: 3, pressed: false, title:'tasks for the week',name: 'Next 7 days'},
+            { id: 3, pressed: false, title:'tasks for the next 7 days in the current month',name: 'Week'},
             { id: 4, pressed: false, title: 'categories', name: 'Categories'},
             { id: 5, pressed: false, title:'tags',name: 'Tags'},
             { id: 6, pressed: false, title:'goals',name: 'Goal'},
