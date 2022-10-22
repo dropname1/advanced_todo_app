@@ -29,14 +29,20 @@
       <span class="selectedData selectTag"
       @click="isTag = !isTag"
       >{{selectItems[2].title}}</span>
-      <tagItem v-if="isTag"></tagItem>
+      <tagItem v-if="isTag"
+      class="tagItemClass"
+      >
+      </tagItem>
     </div>
 
     <div class="selectItem category">Category:
       <span class="selectedData selectCategory"
       @click="isCategory = !isCategory"
       >{{selectItems[3].title}}</span>
-      <categtoriesItem v-if="isCategory"></categtoriesItem>
+      <categtoriesItem v-if="isCategory"
+      class="categoriesItemClass"
+      >
+      </categtoriesItem>
     </div>
 
   </div>
@@ -58,8 +64,8 @@ data () {
     ],
     isCalendar : false,
     isTime: false,
-    isTag: false,
-    isCategory: false,
+    isTag: true,
+    isCategory: true,
   }
 },
 components: {
@@ -121,5 +127,16 @@ methods: {
   background: radial-gradient(rgb(32, 25, 25), black);
   top: 66px;
   margin-left: -76px;
+  box-shadow: 2px 2px 10px black;
+}
+.tagItemClass {
+  position: absolute;
+  margin-top: 34px;
+  box-shadow: 2px 2px 10px black;
+}
+.categoriesItemClass {
+  position: absolute;
+  margin-top: 34px;
+  box-shadow: 2px 2px 10px black;
 }
 </style>

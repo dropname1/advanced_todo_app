@@ -78,7 +78,8 @@ methods: {
     border: 1px solid rgba(0, 0, 0, 0.363);
     position: absolute;
     margin-top: 34px;
-    margin-left: -70px;
+    margin-left: -65px;
+    box-shadow: 2px 2px 10px black;
 }
 .hours {
     overflow-y:scroll;
