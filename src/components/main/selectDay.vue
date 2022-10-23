@@ -139,4 +139,5 @@ methods: {
   margin-top: 34px;
   box-shadow: 2px 2px 10px black;
 }
+
 </style>
